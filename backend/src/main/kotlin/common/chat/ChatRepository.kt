@@ -5,10 +5,7 @@ import application.DataBase.dbQuery
 import io.ktor.http.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import util.Either
-import util.Formatting
-import util.Error
-import util.validateIfSQLOperationSucceeded
+import util.*
 
 class ChatRepositoryImpl : ChatRepository {
     private fun ResultRow.toChat() = Chat(
@@ -21,7 +18,12 @@ class ChatRepositoryImpl : ChatRepository {
 
     override suspend fun get(id: Int): Either<Error, Chat> = dbQuery {
         ChatTable.select { ChatTable.id.eq(id) }.limit(1).singleOrNull()?.toChat()
-            ?.let { Either.Success(it) } ?: Either.Failure(Error(HttpStatusCode.NotFound, "No chat found by ID"))
+            ?.let { Either.Success(it) } ?: Either.Failure(
+            Error(
+                HttpStatusCode.NotFound,
+                ErrorMessage("No chat found by ID")
+            )
+        )
     }
 
     override suspend fun getByUserId(userId: Int): Either<Error, List<Chat>> = dbQuery {
@@ -40,7 +42,7 @@ class ChatRepositoryImpl : ChatRepository {
             it[name] = chat.name
             it[userId] = chat.userId
         }.resultedValues?.get(0)?.toChat()?.let { Either.Success(it) }
-            ?: Either.Failure(Error(HttpStatusCode.InternalServerError, "Failed to insert chat."))
+            ?: Either.Failure(Error(HttpStatusCode.InternalServerError, ErrorMessage("Failed to insert chat.")))
     }
 
     override suspend fun update(chat: Chat): Either<Error, Boolean> = dbQuery {
@@ -49,22 +51,22 @@ class ChatRepositoryImpl : ChatRepository {
                 it[name] = chat.name
             }.validateIfSQLOperationSucceeded()
             if (updated) Either.Success(true)
-            else Either.Failure(Error(HttpStatusCode.InternalServerError, "Failed to update chat."))
+            else Either.Failure(Error(HttpStatusCode.InternalServerError, ErrorMessage("Failed to update chat.")))
         } else {
-            Either.Failure(Error(HttpStatusCode.NotFound, "No chat found by ID in Insert"))
+            Either.Failure(Error(HttpStatusCode.NotFound, ErrorMessage("No chat found by ID in Insert")))
         }
     }
 
     override suspend fun delete(chatId: Int): Either<Error, Boolean> = dbQuery {
         val delete = ChatTable.deleteWhere { ChatTable.id eq chatId }.validateIfSQLOperationSucceeded()
         if (delete) Either.Success(true)
-        else Either.Failure(Error(HttpStatusCode.InternalServerError, "Failed to delete chat."))
+        else Either.Failure(Error(HttpStatusCode.InternalServerError, ErrorMessage("Failed to delete chat.")))
     }
 
     override suspend fun deleteAll(userId: Int): Either<Error, Boolean> = dbQuery {
         val delete = ChatTable.deleteWhere { ChatTable.userId eq userId }.validateIfSQLOperationSucceeded()
         if (delete) Either.Success(true)
-        else Either.Failure(Error(HttpStatusCode.InternalServerError, "Failed to delete All chats."))
+        else Either.Failure(Error(HttpStatusCode.InternalServerError, ErrorMessage("Failed to delete All chats.")))
     }
 
 }

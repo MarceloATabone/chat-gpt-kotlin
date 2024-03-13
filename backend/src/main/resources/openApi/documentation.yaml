@@ -37,6 +37,26 @@ paths:
                 type: string
         "404":
           description: User not found
+
+  /signUp:
+    post:
+      operationId: signUp
+      tags:
+        - Authentication
+      summary: Insert new User [ Bearer not required ]
+      description: ""
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signUp'
+      responses:
+        "200":
+          description: Successfully
+        "404":
+          description: User not found
   ###-------------------------------------<
 
 components:
@@ -62,24 +82,27 @@ components:
         password:
           type: "string"
           example: "@Password!"
+    signUp:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+          example: "admin@gmail.com"
+        password:
+          type: "string"
+          example: "@Password!"
+        passwordVerify:
+          type: "string"
+          example: "@Password!"
+        name:
+          type: "string"
+          example: "Admin"
     chat:
       type: "object"
       properties:
         name:
           type: "name"
           example: "Chat-1"
-        materialId:
-          type: "integer"
-          example: 1
-        instructionId:
-          type: "integer"
-          example: 1
-    chatUpdate:
-      type: "object"
-      properties:
-        name:
-          type: "string"
-          example: "NewName"
     history:
       type: "object"
       properties:
@@ -92,6 +115,3 @@ components:
         value:
           type: "string"
           example: "hi gpt"
-        spentTokens:
-          type: "integer"
-          example: 212
