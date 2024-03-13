@@ -28,4 +28,3 @@ services:
       - ./sql/Functions.sql:/docker-entrypoint-initdb.d/01_functions.sql
       - ./sql/CreateTables.sql:/docker-entrypoint-initdb.d/02_createTables.sql
       - ./sql/Triggers.sql:/docker-entrypoint-initdb.d/03_triggers.sql
-      - ./sql/InsertUser.sql:/docker-entrypoint-initdb.d/04_insertUser.sql
