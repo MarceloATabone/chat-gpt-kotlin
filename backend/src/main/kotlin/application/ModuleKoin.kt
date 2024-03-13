@@ -5,6 +5,7 @@ import authentication.signUp.SignUp
 import common.chat.ChatHandler
 import common.chat.ChatRepository
 import common.chat.ChatRepositoryImpl
+import common.history.HistoryHandler
 import common.history.HistoryRepository
 import common.history.HistoryRepositoryImpl
 import common.user.UserRepository
@@ -21,6 +22,7 @@ val moduleKoin = module {
     single { ChatRepositoryImpl() as ChatRepository }
     single { HistoryRepositoryImpl() as HistoryRepository }
     single { ChatHandler(get() as UserRepository, get() as ChatRepository, get() as HistoryRepository) }
+    single { HistoryHandler(get() as HistoryRepository, get() as ChatHandler) }
     single { SignIn(get() as Environment, get() as SecretService, get() as UserRepository) }
     single { SignUp(get() as SecretService, get() as UserRepository) }
 }
