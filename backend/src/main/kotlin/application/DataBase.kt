@@ -7,12 +7,13 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 
-object Database {
+
+object DataBase {
     private fun database() = Database.connect(
-        inject.environment.dbUrl,
-        user = inject.environment.dbUser,
-        driver = inject.environment.dbDriver,
-        password = inject.environment.dbPwd
+        injecAt.environment.dbUrl,
+        user = injecAt.environment.dbUser,
+        driver = injecAt.environment.dbDriver,
+        password = injecAt.environment.dbPwd
     )
 
     fun init() {

@@ -10,12 +10,12 @@ fun buildEnvironment(): Environment {
         dbDriver = config.getString("ktor.db.dbDriver"),
         dbUser = config.getString("ktor.db.dbUser"),
         dbPwd = config.getString("ktor.db.dbPwd"),
-        jwtSecret = config.getString("ktor.encryptKey"),
-        jwtIssuer = config.getString("jwt.secret"),
-        jwtAudience = config.getString("jwt.issuer"),
-        jwtExpiresAt = config.getInt("jwt.audience"),
-        jwtRealm = config.getString("jwt.expiresAt"),
-        encryptKey = config.getString("jwt.realm"),
+        jwtSecret = config.getString("jwt.secret"),
+        jwtIssuer = config.getString("jwt.issuer"),
+        jwtAudience = config.getString("jwt.audience"),
+        jwtExpiresAt = config.getInt("jwt.expiresAt"),
+        jwtRealm = config.getString("jwt.realm"),
+        encryptKey = config.getString("ktor.encryptKey"),
     )
 }
 

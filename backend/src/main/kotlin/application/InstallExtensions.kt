@@ -12,6 +12,9 @@ import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.cors.routing.*
+import io.ktor.server.plugins.swagger.*
+import io.ktor.server.resources.*
+import io.ktor.server.routing.*
 
 fun Application.installExtensions() {
     install(Koin) {
@@ -19,16 +22,16 @@ fun Application.installExtensions() {
         modules(moduleKoin)
     }
 
-    Database.init()
+    DataBase.init()
 
     install(Authentication) {
         jwt("auth-jwt") {
-            realm = inject.environment.jwtRealm
+            realm = injecAt.environment.jwtRealm
             verifier(
                 JWT
-                    .require(Algorithm.HMAC256(inject.environment.jwtSecret))
-                    .withAudience(inject.environment.jwtAudience)
-                    .withIssuer(inject.environment.jwtIssuer)
+                    .require(Algorithm.HMAC256(injecAt.environment.jwtSecret))
+                    .withAudience(injecAt.environment.jwtAudience)
+                    .withIssuer(injecAt.environment.jwtIssuer)
                     .build()
             )
             validate { credential ->
@@ -68,5 +71,10 @@ fun Application.installExtensions() {
         allowHeader(HttpHeaders.Authorization)
 
         exposeHeader(HttpHeaders.Authorization)
+    }
+
+    install(Resources)
+    routing {
+        swaggerUI(path = "swagger", swaggerFile = "openApi/documentation.yaml")
     }
 }

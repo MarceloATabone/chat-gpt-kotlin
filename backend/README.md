@@ -10,4 +10,14 @@
 <hr>
 </div>
 
-#### 
+#### Swagger Localhost
+
+- http://localhost:8080/swagger
+
+#### Local RUN 
+
+- Generate an SSL certificate
+```bash
+  keytool -genkey -alias selfsigned -keyalg RSA -keypass 123456  -storepass 123456 -keystore ssl/dev/keystore.jks
+``` 
+

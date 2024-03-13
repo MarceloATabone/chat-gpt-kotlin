@@ -10,7 +10,7 @@ fun Application.module() {
     routing()
 }
 
-val inject = Inject()
+val injecAt = Inject()
 
 val json = Json {
     prettyPrint = true
