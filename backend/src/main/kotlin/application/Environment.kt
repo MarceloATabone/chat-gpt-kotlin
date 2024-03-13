@@ -16,6 +16,8 @@ fun buildEnvironment(): Environment {
         jwtExpiresAt = config.getInt("jwt.expiresAt"),
         jwtRealm = config.getString("jwt.realm"),
         encryptKey = config.getString("ktor.encryptKey"),
+        gptKey = config.getString("ktor.gptKey"),
+        gptModel = config.getString("ktor.gptModel")
     )
 }
 
@@ -30,4 +32,6 @@ data class Environment(
     var jwtExpiresAt: Int,
     var jwtRealm: String = "",
     var encryptKey: String = "",
+    var gptKey: String = "",
+    var gptModel: String = ""
 )

@@ -27,12 +27,12 @@ fun Application.installExtensions() {
 
     install(Authentication) {
         jwt("auth-jwt") {
-            realm = injecAt.environment.jwtRealm
+            realm = inject.environment.jwtRealm
             verifier(
                 JWT
-                    .require(Algorithm.HMAC256(injecAt.environment.jwtSecret))
-                    .withAudience(injecAt.environment.jwtAudience)
-                    .withIssuer(injecAt.environment.jwtIssuer)
+                    .require(Algorithm.HMAC256(inject.environment.jwtSecret))
+                    .withAudience(inject.environment.jwtAudience)
+                    .withIssuer(inject.environment.jwtIssuer)
                     .build()
             )
             validate { credential ->

@@ -10,10 +10,10 @@ import org.jetbrains.exposed.sql.StdOutSqlLogger
 
 object DataBase {
     private fun database() = Database.connect(
-        injecAt.environment.dbUrl,
-        user = injecAt.environment.dbUser,
-        driver = injecAt.environment.dbDriver,
-        password = injecAt.environment.dbPwd
+        inject.environment.dbUrl,
+        user = inject.environment.dbUser,
+        driver = inject.environment.dbDriver,
+        password = inject.environment.dbPwd
     )
 
     fun init() {

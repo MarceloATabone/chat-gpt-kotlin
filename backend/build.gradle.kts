@@ -38,6 +38,11 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.exposed.java.time)
 
+    // Ktor Client
+    implementation(libs.ktor.client)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content)
+
     // OpenAPI and Swagger
     implementation(libs.ktor.server.swagger)
     implementation(libs.ktor.server.resources)

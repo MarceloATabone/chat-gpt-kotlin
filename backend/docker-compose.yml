@@ -18,6 +18,7 @@ services:
       - ENCRYPT_KEY=${ENCRYPT_KEY}
       - DISCORD_BOT_KEY=${DISCORD_BOT_KEY}
       - GPT_KEY=${GPT_KEY}
+      - GPT_MODEL=${GPT_MODEL}
     build: .
     ports:
       - "8080:8080"

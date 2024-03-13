@@ -10,7 +10,7 @@ fun Application.module() {
     routing()
 }
 
-val injecAt = Inject()
+val inject = Inject()
 
 val json = Json {
     prettyPrint = true
@@ -18,3 +18,5 @@ val json = Json {
     ignoreUnknownKeys = true
     encodeDefaults = true
 }
+val httpClient = ktorClient()
+
