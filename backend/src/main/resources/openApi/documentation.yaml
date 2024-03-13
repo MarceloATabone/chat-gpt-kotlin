@@ -1,0 +1,117 @@
+openapi: "3.0.3"
+info:
+  title: "GPT - BACKEND"
+  version: "1.0.0"
+
+servers:
+  - url: "http://0.0.0.0:8080"
+    description: Local
+
+tags:
+  - name: Authentication
+    description: signIn
+
+paths:
+  ###Authentication----------------------->
+  /signIn:
+    post:
+      operationId: signIn
+      tags:
+        - Authentication
+      summary: To login [ Bearer not required ]
+      description: ""
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signIn'
+      responses:
+        "200":
+          description: Successfully signed in
+          headers:
+            Authorization:
+              description: Access token for further authentication
+              schema:
+                type: string
+        "404":
+          description: User not found
+
+  /signUp:
+    post:
+      operationId: signUp
+      tags:
+        - Authentication
+      summary: Insert new User [ Bearer not required ]
+      description: ""
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signUp'
+      responses:
+        "200":
+          description: Successfully
+        "404":
+          description: User not found
+  ###-------------------------------------<
+
+components:
+  securitySchemes:
+    bearerAuth:
+      description: Don't put "bearer" in string
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
+  responses:
+    Successfully:
+      description: "Successful operation"
+    Token:
+      description: "Token is not valid or has expired"
+  schemas:
+    signIn:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+          example: "admin@gmail.com"
+        password:
+          type: "string"
+          example: "@Password!"
+    signUp:
+      type: "object"
+      properties:
+        email:
+          type: "string"
+          example: "admin@gmail.com"
+        password:
+          type: "string"
+          example: "@Password!"
+        passwordVerify:
+          type: "string"
+          example: "@Password!"
+        name:
+          type: "string"
+          example: "Admin"
+    chat:
+      type: "object"
+      properties:
+        name:
+          type: "name"
+          example: "Chat-1"
+    history:
+      type: "object"
+      properties:
+        chatId:
+          type: "integer"
+          example: 1
+        byUser:
+          type: "boolean"
+          example: "true"
+        value:
+          type: "string"
+          example: "hi gpt"

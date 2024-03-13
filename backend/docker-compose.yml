@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  backend:
+    container_name: 'gpt-chat-backend'
+    environment:
+      - SSL_KEY_STORE=${SSL_KEY_STORE}
+      - SSL_ALIAS=${SSL_ALIAS}
+      - SSL_STORE_PASSWORD=${SSL_STORE_PASSWORD}
+      - SSL_PRIVATE_KEY_PASSWORD=${SSL_PRIVATE_KEY_PASSWORD}
+      - KTOR_ENV=${KTOR_ENV}
+      - DB_URL=${DB_URL}
+      - DB_USER=${DB_USER}
+      - DB_PWD=${DB_PWD}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ISSUER=${JWT_ISSUER}
+      - JWT_AUDIENCE=${JWT_AUDIENCE}
+      - JWT_EXPIRES_AT=${JWT_EXPIRES_AT}
+      - ENCRYPT_KEY=${ENCRYPT_KEY}
+      - DISCORD_BOT_KEY=${DISCORD_BOT_KEY}
+      - GPT_KEY=${GPT_KEY}
+      - GPT_MODEL=${GPT_MODEL}
+    build: .
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    networks:
+      chat-gpt-network:
+        ipv4_address: 172.30.0.3
+networks:
+  chat-gpt-network:
+    name: "chat-gpt-network"
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
