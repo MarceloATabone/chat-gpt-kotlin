@@ -1,4 +1,1 @@
 package gpt
-
-class Gpt {
-}

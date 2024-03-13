@@ -2,6 +2,7 @@ package application
 
 import authentication.signIn.SignIn
 import authentication.signUp.SignUp
+import common.chat.ChatHandler
 import common.chat.ChatRepository
 import common.chat.ChatRepositoryImpl
 import common.history.HistoryRepository
@@ -12,7 +13,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.dsl.module
 import secret.SecretService
-import kotlin.math.sin
 
 val moduleKoin = module {
     single { buildEnvironment() as Environment }
@@ -20,6 +20,7 @@ val moduleKoin = module {
     single { UserRepositoryImpl() as UserRepository }
     single { ChatRepositoryImpl() as ChatRepository }
     single { HistoryRepositoryImpl() as HistoryRepository }
+    single { ChatHandler(get() as UserRepository, get() as ChatRepository, get() as HistoryRepository) }
     single { SignIn(get() as Environment, get() as SecretService, get() as UserRepository) }
     single { SignUp(get() as SecretService, get() as UserRepository) }
 }

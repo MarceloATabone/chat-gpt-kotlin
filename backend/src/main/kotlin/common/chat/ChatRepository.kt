@@ -63,12 +63,6 @@ class ChatRepositoryImpl : ChatRepository {
         else Either.Failure(Error(HttpStatusCode.InternalServerError, ErrorMessage("Failed to delete chat.")))
     }
 
-    override suspend fun deleteAll(userId: Int): Either<Error, Boolean> = dbQuery {
-        val delete = ChatTable.deleteWhere { ChatTable.userId eq userId }.validateIfSQLOperationSucceeded()
-        if (delete) Either.Success(true)
-        else Either.Failure(Error(HttpStatusCode.InternalServerError, ErrorMessage("Failed to delete All chats.")))
-    }
-
 }
 
 interface ChatRepository {
@@ -77,5 +71,4 @@ interface ChatRepository {
     suspend fun insert(chat: Chat): Either<Error, Chat>
     suspend fun update(chat: Chat): Either<Error, Boolean>
     suspend fun delete(chatId: Int): Either<Error, Boolean>
-    suspend fun deleteAll(userId: Int): Either<Error, Boolean>
 }
