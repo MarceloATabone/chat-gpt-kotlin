@@ -24,7 +24,7 @@
 - Change in [.env.dev](.docker%2F.env.dev) the GPT_KEY variable for your gpt key
 
 
-- Build
+- Build and Run
 
 ```bash
 ./gradlew clean build
